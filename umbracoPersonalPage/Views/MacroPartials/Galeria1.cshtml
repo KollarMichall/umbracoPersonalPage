@@ -1,0 +1,11 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+<div class="row">
+
+@foreach (var img in Umbraco.Media(Udi.Parse(Model.MacroParameters["adresarPreObrazky"].ToString())).Children)
+{
+    <div class="col-md-4">
+        <img class="img-responsive" src="@img.Url" alt="@Path.GetFileNameWithoutExtension(img.Name)" />
+    </div>
+}
+</div>

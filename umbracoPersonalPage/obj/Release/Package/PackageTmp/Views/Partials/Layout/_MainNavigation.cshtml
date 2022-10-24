@@ -1,0 +1,25 @@
+﻿@inherits UmbracoViewPage
+@{
+    var home = Model.Root();
+}
+<ul class="nav">
+    <li class="nav-item me-auto mb-2 mb-md-0"><a class="@(home.Url().ToString() == Model.Url().ToString() ? "active" : null) nav-link" href="@home.Url()">@home.Value("menuTitle")</a></li>
+    @foreach (var childPage in home.Children)
+    {
+        if (childPage.IsDocumentType("text"))
+        {
+            continue;
+        }
+        if (childPage.IsDocumentType("bannerItem"))
+        {
+            continue;
+        }
+
+        if (!(bool)childPage.Value("umbracoNaviHide"))
+        {
+            <li class="nav-item">
+                <a class="@(childPage.IsAncestorOrSelf(Model) ? "active" : null) nav-link" href="@childPage.Url()">@childPage.Value("menuTitle")</a>
+            </li>
+        }
+    }
+</ul>
